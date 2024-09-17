@@ -41,39 +41,44 @@ public class SparseArraySearch {
             if(key.compareTo(words[mid]) == 0) {
                 return mid;
             }
-            if(words[mid] == "") {
+            if(words[mid].isEmpty()) {
                 // find left or right boundary
                 int left = mid - 1;
                 int right = mid + 1;
+                // scan for empty strings
                 while(left >= lo && right <= hi) {
-                    if(words[left] == "" && words[right] == "") {
+                    if(words[left].isEmpty() && words[right].isEmpty()) {
+                        // both left and right are empty
                         left--;
                         right++;
                         continue;
                     }
-                    if(words[left] != "") {
+                    if(!words[left].isEmpty()) {
+                        // left is a word and right is empty
                         if(key.compareTo(words[left]) == 0) {
                             return left;
                         } else if(key.compareTo(words[left]) < 0) {
                             hi = left - 1;
                         } else {
                             // > 0
-                            lo = right;
+                            lo = right + 1;
                         }
                         break;
                     } else {
+                        // right is a word and left is empty
                         if(key.compareTo(words[right]) == 0) {
                             return right;
                         } else if(key.compareTo(words[right]) > 0) {
                             lo = right + 1;
                         } else {
                             // < 0
-                            hi = left;
+                            hi = left - 1;
                         }
                         break;
                     }
                 }
                 if(left < lo && right > hi) {
+                    // entire array[lo,hi] has empty strings
                     break;
                 }
             } else if(key.compareTo(words[mid]) < 0) {
