@@ -11,6 +11,16 @@ public class SuffixTree {
     private Trie trie;
     private StringBuilder sb;
     private String[] words;
+    private int maxLen;
+
+    /**
+     * Optimization of StringBuilder's length.
+     * <p>
+     * At max, we will traverse the stream till a length N,
+     * where N = the length of the word with the max length under words[]
+     *
+     * Still better in the worst case, where maxLen << billion chars stream
+     */
 
     public SuffixTree(String[] words) {
         this.words = words;
@@ -22,6 +32,10 @@ public class SuffixTree {
     // search the stream for suffix
     public boolean suffixSearch(char ch) {
         sb.append(ch);
+        // Limit the Stream Length to maxLen
+        if(sb.length() > maxLen) {
+            sb.deleteCharAt(0);
+        }
         return this.trie.search(sb);
     }
 
@@ -30,6 +44,7 @@ public class SuffixTree {
     private void buildSuffixTree() {
         for (String word : words) {
             this.trie.insertSuffix(word);
+            maxLen = Math.max(maxLen, word.length());
         }
     }
 
