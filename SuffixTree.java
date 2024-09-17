@@ -26,6 +26,7 @@ public class SuffixTree {
     }
 
     // building the suffix tree
+    // TC: O(n * k)
     private void buildSuffixTree() {
         for (String word : words) {
             this.trie.insertSuffix(word);
