@@ -1,3 +1,4 @@
+// https://www.geeksforgeeks.org/sum-products-possible-subsets/
 /**
  * Find all subsets -> product of each subset -> add it to the global sum
  * TC: O(2^n) ~ exponential
